@@ -1,4 +1,4 @@
-# Vicyos-Linux Unified DEVELOPMENT AND TESTING iso.
+# Vicyos-Linux Unified Development and Testing iso.
 
 
 
