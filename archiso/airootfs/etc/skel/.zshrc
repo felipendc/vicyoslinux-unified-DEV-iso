@@ -324,6 +324,8 @@ alias desligar="sudo shutdown now"
 alias reiniciar="sudo reboot"
 alias atualizar='sudo pacman -Syu'
 alias att='sudo pacman -Syu'
+alias info='sudo pacman -Qi'
+
 clear && neofetch
 
 

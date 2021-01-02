@@ -92,14 +92,20 @@ function enableServicesFunc() {
 	systemctl enable NetworkManager.service
 	systemctl enable virtual-machine-check.service
 	#systemctl enable update-mirror.service
-  systemctl enable org.cups.cupsd.service
-  systemctl enable bluetooth.service
-  systemctl enable ntpd.service
+  
+  # Enable CUPS fix!
+  #systemctl enable org.cups.cupsd.service # Not working anymore!
+  sudo systemctl enable --now cups
+  sudo systemctl enable cups.service
+  sudo systemctl start cups.service
+  
+  sudo systemctl enable bluetooth.service
+  sudo systemctl enable ntpd.service
   #systemctl enable smb.service
   #systemctl enable nmb.service
   #systemctl enable winbind.service
-  systemctl enable avahi-daemon.service
-  systemctl enable avahi-daemon.socket
+  sudo systemctl enable avahi-daemon.service
+  sudo systemctl enable avahi-daemon.socket
   #systemctl enable tlp.service
   #systemctl enable tlp-sleep.service
   #systemctl enable vnstat.service
@@ -119,19 +125,20 @@ function fixHibernateFunc() {
 }
 
 function initkeysFunc() {
-    pacman-key --init
-    pacman-key --populate archlinux
-    pacman-key --populate arcolinux
+    sudo pacman-key --init
+    sudo pacman-key --populate archlinux
+    sudo pacman-key --populate arcolinux
     #pacman-key --keyserver hkps://hkps.pool.sks-keyservers.net:443 -r 74F5DE85A506BF64
     #pacman-key --keyserver hkp://pool.sks-keyservers.net:80 -r 74F5DE85A506BF64
-    pacman-key --lsign-key 74F5DE85A506BF64
+    sudo pacman-key --lsign-key 74F5DE85A506BF64
+    #pacman-key --lsign-key F1ABB772CE9F7FC0
     #sudo pacman-key --refresh-keys
 }
 
 function getNewMirrorCleanAndUpgrade() {
     reflector --threads 50 -l 100 -f 100 --number 20 --sort rate --save /etc/pacman.d/mirrorlist
-    pacman -Sc --noconfirm
-    pacman -Syyu --noconfirm
+    sudo pacman -Sc --noconfirm
+    sudo pacman -Syyu --noconfirm
 }
 
 deleteXfceWallpapers
